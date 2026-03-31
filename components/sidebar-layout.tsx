@@ -11,7 +11,7 @@ const SITES = [
   { value: "medpassedu.org", label: "medpassedu.org" },
   { value: "telth.care", label: "telth.care" },
   { value: "telth.org", label: "telth.org" },
-  { value: "natlife.org", label: "natlife.org" },
+  { value: "natlife.org.in", label: "natlife.org.in" },
   { value: "localhost", label: "localhost" },
 ]
 
@@ -20,7 +20,7 @@ const siteColors: Record<string, string> = {
   "medpassedu.org": "bg-blue-500",
   "telth.care": "bg-teal-500",
   "telth.org": "bg-orange-500",
-  "natlife.org": "bg-green-500",
+  "natlife.org.in": "bg-green-500",
   "localhost:8080": "bg-gray-400",
 }
 

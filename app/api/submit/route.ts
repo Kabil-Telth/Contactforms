@@ -10,7 +10,7 @@ const ALLOWED_ORIGINS = [
   "https://medpassedu.org",     
   "https://telth.care",         
   "https://telth.org",         
-  "https://natlife.org",      
+  "https://natlife.org.in",      
   "http://localhost:8080",    
   "http://localhost:5500",    
   "http://127.0.0.1:5500",    

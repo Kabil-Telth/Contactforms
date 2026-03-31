@@ -33,7 +33,7 @@ const siteColors: Record<string, string> = {
   "medpassedu.org": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
   "telth.care": "bg-teal-100 text-teal-800 dark:bg-teal-900 dark:text-teal-200",
   "telth.org": "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200",
-  "natlife.org": "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
+  "natlife.org.in": "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
 }
 
 export function SubmissionCard({ submission, onStatusChange, onDelete }: SubmissionCardProps) {

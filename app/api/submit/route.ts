@@ -7,10 +7,15 @@ import { checkRateLimit } from "@/lib/checkRateLimit"
 // Allowed sites - add all your domains here
 const ALLOWED_ORIGINS = [
   "https://nahm-som.org",       
+  "https://www.nahm-som.org",       
   "https://medpassedu.org",     
+  "https://www.medpassedu.org",     
   "https://telth.care",         
+  "https://www.telth.care",         
   "https://telth.org",         
+  "https://www.telth.org",         
   "https://natlife.org.in",      
+  "https://www.natlife.org.in",      
   "http://localhost:8080",    
   "http://localhost:5500",    
   "http://127.0.0.1:5500",    

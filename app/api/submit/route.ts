@@ -14,12 +14,17 @@ const ALLOWED_ORIGINS = [
   "https://www.telth.care",         
   "https://telth.org",         
   "https://www.telth.org",         
+  "https://telth.ai",         
+  "https://www.telth.ai",    
+  "https://www.harleyhealthsystem.com",    
+  "https://harleyhealthsystem.com",    
   "https://natlife.org.in",      
   "https://www.natlife.org.in",      
   "http://localhost:8080",    
   "http://localhost:5500",    
   "http://127.0.0.1:5500",    
 ]
+
 
 function getCorsHeaders(origin: string) {
   const allowed = ALLOWED_ORIGINS.includes(origin)

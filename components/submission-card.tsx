@@ -34,6 +34,8 @@ const siteColors: Record<string, string> = {
   "telth.care": "bg-teal-100 text-teal-800 dark:bg-teal-900 dark:text-teal-200",
   "telth.org": "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200",
   "natlife.org.in": "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
+  "telth.ai": "bg-black-100 text-red-800 dark:bg-green-900 dark:text-green-200",
+  "harleyhealthsystem.com": "bg-yellow-100 text-pink-800 dark:bg-green-900 dark:text-green-200",
 }
 
 export function SubmissionCard({ submission, onStatusChange, onDelete }: SubmissionCardProps) {

@@ -6,22 +6,46 @@ import { Menu, X, LogOut, LayoutDashboard } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 const SITES = [
-  { value: "all", label: "All Sites" },
-  { value: "nahm-som.org", label: "nahm-som.org" },
-  { value: "medpassedu.org", label: "medpassedu.org" },
-  { value: "telth.care", label: "telth.care" },
-  { value: "telth.org", label: "telth.org" },
-  { value: "natlife.org.in", label: "natlife.org.in" },
-  { value: "localhost", label: "localhost" },
+  { value: "all",             label: "All Sites" },
+  { value: "nahm-som.org",    label: "nahm-som.org" },
+  { value: "medpassedu.org",  label: "medpassedu.org" },
+  { value: "telth.care",      label: "telth.care" },
+  { value: "telth.org",       label: "telth.org" },
+  { value: "natlife.org.in",  label: "natlife.org.in" },
+  { value: "telth.ai",  label: "telth.ai" },
+  { value: "harleyhealthsystem.com",  label: "eterna" },
+  { value: "localhost",       label: "localhost (dev)" },
 ]
 
 const siteColors: Record<string, string> = {
-  "nahm-som.org": "bg-purple-500",
+  "nahm-som.org":   "bg-purple-500",
   "medpassedu.org": "bg-blue-500",
-  "telth.care": "bg-teal-500",
-  "telth.org": "bg-orange-500",
+  "telth.care":     "bg-teal-500",
+  "telth.org":      "bg-orange-500",
   "natlife.org.in": "bg-green-500",
-  "localhost:8080": "bg-gray-400",
+  "localhost":      "bg-gray-400",
+}
+
+/**
+ * Canonical site key from any origin string.
+ *
+ * ALLOWED_ORIGINS examples → canonical key:
+ *   "https://nahm-som.org"        → "nahm-som.org"
+ *   "https://www.nahm-som.org"    → "nahm-som.org"
+ *   "https://natlife.org.in"      → "natlife.org.in"
+ *   "https://www.natlife.org.in"  → "natlife.org.in"
+ *   "http://localhost:8080"       → "localhost"
+ *   "http://localhost:5500"       → "localhost"
+ *   "http://127.0.0.1:5500"       → "localhost"
+ */
+function normalizeSite(raw: string): string {
+  let s = raw.trim().toLowerCase()
+  s = s.replace(/^https?:\/\//, "")  // strip protocol
+  s = s.replace(/\/$/, "")           // strip trailing slash
+  s = s.replace(/^www\./, "")        // strip www.
+  s = s.replace(/:\d+$/, "")         // strip port (:8080, :5500 …)
+  if (s === "127.0.0.1") s = "localhost"
+  return s
 }
 
 interface SidebarLayoutProps {
@@ -33,17 +57,16 @@ export function SidebarLayout({ children }: SidebarLayoutProps) {
   const [selected, setSelected] = useState("all")
   const [newCounts, setNewCounts] = useState<Record<string, number>>({})
 
-  // fetch new status counts for all sites in one call
   const fetchCounts = useCallback(async () => {
     try {
       const res = await fetch("/api/submissions?status=new")
       const data = await res.json()
       if (!Array.isArray(data)) return
 
-      // build counts per site from the response
       const counts: Record<string, number> = { all: data.length }
       for (const sub of data) {
-        counts[sub.site] = (counts[sub.site] || 0) + 1
+        const key = normalizeSite(sub.site)
+        counts[key] = (counts[key] || 0) + 1
       }
       setNewCounts(counts)
     } catch (e) {
@@ -51,7 +74,6 @@ export function SidebarLayout({ children }: SidebarLayoutProps) {
     }
   }, [])
 
-  // fetch on mount + poll every 60s
   useEffect(() => {
     fetchCounts()
     const interval = setInterval(fetchCounts, 60000)
@@ -66,7 +88,6 @@ export function SidebarLayout({ children }: SidebarLayoutProps) {
   return (
     <div className="flex min-h-screen bg-background">
 
-      {/* Overlay — mobile only */}
       {open && (
         <div
           className="fixed inset-0 z-20 bg-black/40 lg:hidden"
@@ -74,7 +95,6 @@ export function SidebarLayout({ children }: SidebarLayoutProps) {
         />
       )}
 
-      {/* Sidebar */}
       <aside className={`
         fixed top-0 left-0 z-30 h-full w-60 bg-sidebar border-r flex flex-col
         transform transition-transform duration-200
@@ -113,13 +133,10 @@ export function SidebarLayout({ children }: SidebarLayoutProps) {
 
                 <span className="truncate flex-1">{site.label}</span>
 
-                {/* badge — only shown when count > 0 */}
                 {count > 0 && (
                   <span className={`
                     text-xs font-bold px-1.5 py-0.5 rounded-full min-w-[20px] text-center
-                    ${isActive
-                      ? "bg-white/20 text-white"
-                      : "bg-blue-500 text-white"}
+                    ${isActive ? "bg-white/20 text-white" : "bg-blue-500 text-white"}
                   `}>
                     {count > 99 ? "99+" : count}
                   </span>
@@ -140,7 +157,6 @@ export function SidebarLayout({ children }: SidebarLayoutProps) {
         </div>
       </aside>
 
-      {/* Main content */}
       <div className="flex-1 flex flex-col min-w-0">
         <header className="sticky top-0 z-10 flex items-center gap-3 px-4 py-3 border-b bg-background/95 backdrop-blur">
           <Button variant="ghost" size="icon" className="lg:hidden h-8 w-8" onClick={() => setOpen(true)}>
@@ -162,4 +178,4 @@ export function SidebarLayout({ children }: SidebarLayoutProps) {
       </div>
     </div>
   )
-} 
+}

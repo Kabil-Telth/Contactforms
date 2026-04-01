@@ -11,9 +11,14 @@ export async function GET(request: NextRequest) {
     const db = await getDatabase()
     const collection = db.collection<FormSubmission>("submissions")
 
-    const filter: Record<string, unknown> = {}
-    if (site) filter.site = site
-    if (status) filter.status = status
+   const filter: Record<string, unknown> = {}
+if (site) {
+  // match both www.telth.care and telth.care
+  const withWww = site.startsWith("www.") ? site : `www.${site}`
+  const withoutWww = site.replace(/^www\./, "")
+  filter.site = { $in: [withWww, withoutWww] }  // MongoDB $in matches either
+}
+if (status) filter.status = status
 
     const submissions = await collection
       .find(filter)

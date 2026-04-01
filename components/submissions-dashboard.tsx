@@ -67,7 +67,7 @@ const siteColors: Record<string, string> = {
   "harleyhealthsystem.com": "bg-yellow-100 text-pink-800 dark:bg-green-900 dark:text-green-200",
 }
 
-type ViewMode = "grid" | "list" | "table"
+type ViewMode ="table" | "grid" | "list" 
 type SortField = "createdAt" | "site" | "status"
 type SortDir = "asc" | "desc"
 
@@ -254,7 +254,7 @@ export function SubmissionsDashboard({
   const [loading, setLoading] = useState(true)
   const [exporting, setExporting] = useState(false)
   const [statusFilter, setStatusFilter] = useState<string>("all")
-  const [viewMode, setViewMode] = useState<ViewMode>("grid")
+  const [viewMode, setViewMode] = useState<ViewMode>("table")
   const [sortField, setSortField] = useState<SortField>("createdAt")
   const [sortDir, setSortDir] = useState<SortDir>("desc")
   const [page, setPage] = useState(1)

@@ -37,6 +37,7 @@ const SITES = [
   { value: "natlife.org.in",  label: "natlife.org.in" },
   { value: "harleyhealthsystem.com",  label: "eterna" },
   { value: "telth.ai",  label: "telth.ai" },
+  { value: "mytelth.com",  label: "Mytelth.com" },
   { value: "localhost",       label: "localhost (dev)" },
 ]
 

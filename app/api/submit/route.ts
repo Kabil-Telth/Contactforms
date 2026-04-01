@@ -16,6 +16,8 @@ const ALLOWED_ORIGINS = [
   "https://www.telth.org",         
   "https://telth.ai",         
   "https://www.telth.ai",    
+  "https://mytelth.com",    
+  "https://www.mytelth.com",    
   "https://www.harleyhealthsystem.com",    
   "https://harleyhealthsystem.com",    
   "https://natlife.org.in",      
